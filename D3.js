@@ -1,27 +1,26 @@
-var dataArray = [20, 40, 50, 60];
-var w = 500;
-var h = 500;
-
-var barScale = d3.scaleLinear().domain([0, 60]).range([0, w]);
-var color = d3.scaleLinear().domain([0, 60]).range(["red", "blue"]);
-var axis = d3.axisBottom(barScale);
-
+var data = [10];
 var canvas = d3
   .select("body")
   .append("svg")
-  .attr("style", "border: 2px solid")
-  .attr("width", w)
-  .attr("height", h)
-  .append("g")
-  .attr("transform", "translate(20, 0)")
-  .call(axis);
+  .attr("width", 500)
+  .attr("height", 500)
+  .attr("style", "border: 1px solid");
 
-var bars = canvas
-  .selectAll("rect")
-  .data(dataArray)
+var circle1 = canvas
+  .append("circle")
+  .attr("cx", 50)
+  .attr("cy", 100)
+  .attr("r", 25);
+
+var circle2 = canvas
+  .append("circle")
+  .attr("cx", 50)
+  .attr("cy", 200)
+  .attr("r", 25);
+
+var circles = canvas
+  .selectAll("circle")
+  .data(data)
+  .attr("fill", "red")
   .enter()
-  .append("rect")
-  .attr("fill", (d) => color(d))
-  .attr("width", (d) => barScale(d))
-  .attr("height", 50)
-  .attr("y", (d, i) => i * 100);
+  .attr("fill", "green");
