@@ -6,21 +6,16 @@ var canvas = d3
   .attr("height", 500)
   .attr("style", "border: 1px solid");
 
-var circle1 = canvas
+var circle = canvas
   .append("circle")
   .attr("cx", 50)
-  .attr("cy", 100)
+  .attr("cy", 50)
   .attr("r", 25);
 
-var circle2 = canvas
-  .append("circle")
-  .attr("cx", 50)
-  .attr("cy", 200)
-  .attr("r", 25);
-
-var circles = canvas
-  .selectAll("circle")
-  .data(data)
-  .attr("fill", "red")
-  .enter()
-  .attr("fill", "green");
+circle
+  .transition()
+  .duration(2000)
+  .attr("cx", 150)
+  .on("end", function () {
+    d3.select(this).attr("fill", "red");
+  });
