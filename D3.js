@@ -1,21 +1,22 @@
-var data = [10];
-var canvas = d3
-  .select("body")
-  .append("svg")
-  .attr("width", 500)
-  .attr("height", 500)
-  .attr("style", "border: 1px solid");
+var data = [10, 20, 30, 40, 50];
+d3.json("mydata.json").then((data) => {
+  var canvas = d3
+    .select("body")
+    .append("svg")
+    .attr("width", 500)
+    .attr("height", 500);
 
-var circle = canvas
-  .append("circle")
-  .attr("cx", 50)
-  .attr("cy", 50)
-  .attr("r", 25);
-
-circle
-  .transition()
-  .duration(2000)
-  .attr("cx", 150)
-  .on("end", function () {
-    d3.select(this).attr("fill", "red");
-  });
+  canvas
+    .selectAll("rect")
+    .data(data)
+    .enter()
+    .append("rect")
+    .attr("width", function (d) {
+      return d.age * 5;
+    })
+    .attr("height", 20)
+    .attr("y", function (d, i) {
+      return i * 25;
+    })
+    .attr("fill", "blue");
+});
