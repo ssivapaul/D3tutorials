@@ -10,11 +10,13 @@ var group = canvas.append("g").attr("transform", "translate(300, 300)");
 var r = 300;
 var data = [10, 50, 80];
 
-var arc = d3.arc().innerRadius(200).outerRadius(r);
+var arc = d3.arc().innerRadius(0).outerRadius(r);
 
 var pie = d3.pie().value(function (d) {
   return d;
 });
+
+var color = d3.scaleOrdinal().range(["red", "green", "blue"]);
 
 var arcs = group
   .selectAll(".arc")
@@ -23,4 +25,14 @@ var arcs = group
   .append("g")
   .attr("class", "arc");
 
-arcs.append("path").attr("d", arc);
+arcs
+  .append("path")
+  .attr("d", arc)
+  .attr("fill", (d) => color(d.data));
+
+arcs
+  .append("text")
+  .attr("transform", (d) => "translate(" + arc.centroid(d) + ")")
+  .text((d) => d.data)
+  .attr("font-size", "2rem")
+  .attr("text-anchor", "middle");
